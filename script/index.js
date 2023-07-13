@@ -56,6 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
       if (nombre === usuarioGuardado.nombre && contrasena === usuarioGuardado.contrasena) {
         alert('Inicio de sesión exitoso. ¡Bienvenido!');
+//REDIRECCIONO A UNA PAGINA DESPUES DEL INICIO EXITOSO
+        window.location.href = '../pages/coleccionDiscos.html'
+
       } else {
         alert('Credenciales incorrectas. Por favor, verifique sus datos.');
       }

@@ -1,8 +1,8 @@
 body {
     background-color: #34675c;
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
 }
 
@@ -44,16 +44,6 @@ card {
 	padding: 0;
 }
 
-body {
-	font-family: 'Poppins', sans-serif;
-	min-height: 100vh;
-	width: 100%;
-	background: #3f6c45;
-	color: #000;
-	display: flex;
-	flex-direction: column;
-    justify-content: center;
-}
 
 h1 {
 	font-size: 80px;
