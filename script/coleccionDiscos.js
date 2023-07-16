@@ -82,7 +82,8 @@ const discos = [
         lanzamiento: '1968', 
         genero: 'Jazz', 
         imagen: '../imagenes/McCoy-Tyner-Expansions-album-cover-web-optimised-820-brightness-1024x1024.jpg', 
-    }
+    }, 
+    
 ];
 
 // Función para mostrar los discos según el género seleccionado.
