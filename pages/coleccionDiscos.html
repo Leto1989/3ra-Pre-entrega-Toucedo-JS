@@ -8,10 +8,29 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <button id="btnAgregarDisco">Agregar Disco</button>
+    <div id="formularioAgregar" style="display: none;">
+        <h3> Agregar Disco Nuevo </h3>
+        <form id="formularioAgregarDisco">
+            <label for="titulo"> Título: </label>
+            <input type="text" id="titulo" required>
+            <label for="artista"> Artista: </label>
+            <input type="text" id="artista" required>
+            <label for="lanzamiento"> Año de lanzamiento</label>
+            <input type="text" id="lanzamiento" required>
+            <label for="genero"> Género: </label>
+            <input type="text" id="genero" required>
+            <label for="imagen"> Imágen (URL): </label>
+            <input type="text" id="imagen" required>
+            <br>
+            <button type="submit"> Agregar Disco </button>
+        </form>
+        </div>
+
     <h1> Colección de discos </h1>
 
     <h2> Géneros </h2>
-    <select  id="selector-generos">
+    <select  id="selectorGeneros">
 
         <option value="rock"> Rock </option>
         <option value="jazz"> Jazz </option>
