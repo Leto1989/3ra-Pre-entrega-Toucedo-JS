@@ -53,7 +53,7 @@ const discos = [
         artista: 'ACDC',
         lanzamiento: '1979',
         genero: 'rock', 
-        imagen: 'imagenes/ac-dc-highway-to-hell-1-768x768.jpg',
+        imagen: '../imagenes/ac-dc-highway-to-hell-1-768x768.jpg',
     }, 
     {
         titulo: 'Live at the Cheetah',
@@ -86,62 +86,66 @@ const discos = [
     
 ];
 
-// Función para mostrar los discos según el género seleccionado.
-function mostrarDiscosPorGenero (){
-    const generoSelector = document.getElementById ('selectorGeneros');
-    const generoSeleccionado = generoSelector.value;
-    const discosLista = document.getElementById ('discos-lista');
+
+function mostrarDiscosPorGenero() {
+    const generoSelector = document.getElementById('selectorGeneros');
+    const generoSeleccionado = generoSelector.value.toLowerCase();
+    const discosLista = document.getElementById('discos-lista');
     discosLista.innerHTML = '';
-    
-    discos.forEach (function (disco) {
-        if (disco.genero === generoSeleccionado){
-            const tarjeta = document.createElement ('div');
-            tarjeta.classList.add ('tarjeta');
-
-            const imagen = document.createElement ('img');
-            imagen.src = disco.imagen;
-            tarjeta.appendChild (imagen);
-            
-            const titulo = document.createElement ('h3');
-            titulo.textContent = disco.titulo;
-            tarjeta.appendChild (titulo);
-
-            const artista = document.createElement ('p');
-            artista.textContent = 'Artista: ' + disco.artista;
-            tarjeta.appendChild (artista);
-
-            const lanzamiento = document.createElement ('p');
-            lanzamiento.textContent = 'Año de lanzamiento: ' + disco.lanzamiento;
-            tarjeta.appendChild (lanzamiento);
-            const botonAgregar = document.createElement ('button');
-            botonAgregar.textContent = 'Agregar';
-            botonAgregar.addEventListener ('click', function(){
-                agregarDiscoPersonal (disco);
-            });
-
-            tarjeta.appendChild (botonAgregar);
-            discosLista.appendChild (tarjeta);
-        }
+  
+    discos.forEach(function (disco) {
+      if (disco.genero.toLowerCase() === generoSeleccionado) {
+        const tarjeta = document.createElement('div');
+        tarjeta.classList.add('tarjeta');
+  
+        const imagen = document.createElement('img');
+        imagen.src = disco.imagen;
+        tarjeta.appendChild(imagen);
+  
+        const titulo = document.createElement('h3');
+        titulo.textContent = disco.titulo;
+        tarjeta.appendChild(titulo);
+  
+        const artista = document.createElement('p');
+        artista.textContent = 'Artista: ' + disco.artista;
+        tarjeta.appendChild(artista);
+  
+        const lanzamiento = document.createElement('p');
+        lanzamiento.textContent = 'Año de lanzamiento: ' + disco.lanzamiento;
+        tarjeta.appendChild(lanzamiento);
+  
+        const botonAgregar = document.createElement('button');
+        botonAgregar.textContent = 'Agregar';
+        botonAgregar.addEventListener('click', function () {
+          agregarDiscoPersonal(disco);
+        });
+  
+        tarjeta.appendChild(botonAgregar);
+        discosLista.appendChild(tarjeta);
+      }
     });
-}
-
-// Función para agregar un disco a la lista personal
-function agregarDiscoPersonal (disco) {
-    const nuevoElemento = document.createElement ('li');
-    nuevoElemento.textContent = disco.titulo + ' - ' + disco.artista;
-    const listaPersonal = document.getElementById ('lista-personal');
-    listaPersonal.appendChild (nuevoElemento);
-}
-
-
-// Obtener elementos del DOM después de que se haya cargado el HTML
-document.addEventListener("DOMContentLoaded", function () {
+  }
+  
+  function agregarDiscoPersonal(disco) {
+    const nuevoDisco = {
+      titulo: disco.titulo,
+      artista: disco.artista,
+      lanzamiento: disco.lanzamiento,
+      genero: disco.genero,
+      imagen: disco.imagen,
+    };
+  
+    discos.push(nuevoDisco);
+    mostrarDiscosPorGenero();
+  }
+  
+  document.addEventListener("DOMContentLoaded", function () {
     const btnAgregarDisco = document.getElementById("btnAgregarDisco");
     const formularioAgregar = document.getElementById("formularioAgregar");
     const formulario = document.getElementById("formularioAgregarDisco");
     const selectorGeneros = document.getElementById('selectorGeneros');
+    const imagenInput = document.getElementById("imagenInput");
   
-    // Muestra el formulario al hacer clic en el botón
     btnAgregarDisco.addEventListener("click", function () {
       formularioAgregar.style.display = "block";
     });
@@ -153,27 +157,30 @@ document.addEventListener("DOMContentLoaded", function () {
       const artista = document.getElementById("artista").value;
       const lanzamiento = document.getElementById("lanzamiento").value;
       const genero = document.getElementById("genero").value;
-      const imagen = document.getElementById("imagen").value;
   
-      const nuevoDisco = {
-        titulo: titulo,
-        artista: artista,
-        lanzamiento: lanzamiento,
-        genero: genero,
-        imagen: imagen,
-      };
+      if (imagenInput.files.length > 0) {
+        const imagen = imagenInput.files[0];
+        const reader = new FileReader();
   
-      discos.push(nuevoDisco);
+        reader.onload = function (e) {
+          const imagenBase64 = e.target.result;
   
-      formulario.reset();
-      formularioAgregar.style.display = "none";
-      mostrarDiscosPorGenero();
+          const nuevoDisco = {
+            titulo: titulo,
+            artista: artista,
+            lanzamiento: lanzamiento,
+            genero: genero,
+            imagen: imagenBase64,
+          };
+  
+          agregarDiscoPersonal(nuevoDisco);
+        };
+  
+        reader.readAsDataURL(imagen);
+      }
     });
-    
-    //Asocio el evento ONchange del selector de género a la función mostrarDiscos por género
-    selectorGeneros.addEventListener ("change", mostrarDiscosPorGenero)
-    // Mostrar los discos iniciales al cargar la página
+  
+    selectorGeneros.addEventListener("change", mostrarDiscosPorGenero);
     mostrarDiscosPorGenero();
   });
-
 
