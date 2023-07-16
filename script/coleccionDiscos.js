@@ -114,30 +114,12 @@ function mostrarDiscosPorGenero() {
         lanzamiento.textContent = 'Año de lanzamiento: ' + disco.lanzamiento;
         tarjeta.appendChild(lanzamiento);
   
-        const botonAgregar = document.createElement('button');
-        botonAgregar.textContent = 'Agregar';
-        botonAgregar.addEventListener('click', function () {
-          agregarDiscoPersonal(disco);
-        });
-  
-        tarjeta.appendChild(botonAgregar);
+        
         discosLista.appendChild(tarjeta);
       }
     });
   }
-  
-  function agregarDiscoPersonal(disco) {
-    const nuevoDisco = {
-      titulo: disco.titulo,
-      artista: disco.artista,
-      lanzamiento: disco.lanzamiento,
-      genero: disco.genero,
-      imagen: disco.imagen,
-    };
-  
-    discos.push(nuevoDisco);
-    mostrarDiscosPorGenero();
-  }
+
   
   document.addEventListener("DOMContentLoaded", function () {
     const btnAgregarDisco = document.getElementById("btnAgregarDisco");
